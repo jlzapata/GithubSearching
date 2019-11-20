@@ -11,15 +11,19 @@ import { CoreModule } from './core/core.module';
 import { RepoSearchComponent } from './repo-search/repo-search.component';
 import { RepositoryComponent } from './repository/repository.component';
 import { SharedModule } from './shared/shared.module';
+import { ContributorsRepositoryComponent } from './contributors-repository/contributors-repository.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     RepoSearchComponent,
-    RepositoryComponent
+    RepositoryComponent,
+    ContributorsRepositoryComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     FontAwesomeModule,
     CoreModule,

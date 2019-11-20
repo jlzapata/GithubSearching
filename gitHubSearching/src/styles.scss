@@ -95,6 +95,7 @@ nggit-repo-search{
     border: 1px solid $backgroundColor;
     border-radius: 5px;
     height: 40px;
+    position: relative;
 
     input{
       width: 85%;
@@ -120,7 +121,6 @@ nggit-repo-search{
   }
 
   .search-results{
-    height: 200px;
     margin: 20px auto;
     width: 90%;
     min-width: 420px;
@@ -139,14 +139,13 @@ nggit-repository{
   padding-top:10px ;
   border-radius: 4px;
   font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 
 .repo-header{
   margin-bottom: 20px;
-
-  .repo-name{
-  }
 }
 
 .repo-body{
@@ -154,28 +153,109 @@ nggit-repository{
     margin-bottom: 20px;
     color: #797676;
   }
-
-  .information-container{
-     & > span{
-       margin-right: 15px;
-       color: #797676;
-
-       fa-icon{
-         margin-right: 5px;
-       }
-
-       &:nth-of-type(2) > fa-icon{
-         color: rgb(224, 183, 46);
-       }
+}
 
 
-       &:nth-of-type(3) > fa-icon{
-        color: #e62727;
-      }
-     }
+.information-container{
+  margin-top: auto;
 
-     & > a{
-      float: right;
-     }
+  & > span{
+    margin-right: 15px;
+    color: #797676;
+
+    fa-icon{
+      margin-right: 5px;
+    }
+
+    &:nth-of-type(2) > fa-icon{
+      color: rgb(224, 183, 46);
+    }
+
+
+    &:nth-of-type(3) > fa-icon{
+     color: #e62727;
+   }
+  }
+
+  & > a{
+   float: right;
+  }
+}
+
+.info{
+  font-size: 2rem;
+  text-align: center;
+  margin: 40px 0;
+}
+
+
+
+.loader {
+  text-indent: -9999em;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  background: #24292E;
+  background: -moz-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: -webkit-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: -o-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: -ms-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: linear-gradient(to right, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  position: relative;
+  -webkit-animation: load3 1s infinite ease-in-out;
+  animation: load3 1s infinite ease-in-out;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  display: inline-block;
+  position: absolute;
+
+  &.search{
+    right: 15%;
+    top: 4px;
+
+  }
+}
+.loader:before {
+  width: 50%;
+  height: 50%;
+  background: #24292E;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+.loader:after {
+  background: #fff;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: '';
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }

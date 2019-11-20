@@ -36,6 +36,7 @@ export class GithubApiService {
       map((response: any) => {
         return response.items.map(repo => {
           return {
+            id: repo.id,
             name: repo.full_name,
             description: repo.description,
             stars: repo.stargazers_count,
