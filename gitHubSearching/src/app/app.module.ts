@@ -6,17 +6,24 @@ import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CoreModule } from './core/core.module';
+import { RepoSearchComponent } from './repo-search/repo-search.component';
+import { RepositoryComponent } from './repository/repository.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RepoSearchComponent,
+    RepositoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -24,7 +31,7 @@ import { CoreModule } from './core/core.module';
 export class AppModule {
 
   constructor() {
-    library.add(faGithub);
+    library.add(faGithub, faSearch);
   }
 
 }
