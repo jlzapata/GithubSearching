@@ -1,11 +1,11 @@
 <div class="search-container">
   <div class="search-control">
-    <input class="input-control bold-text" name="repo-name" placeholder="Search by repository name"/>
+    <input class="input-control bold-text" name="repo-name" placeholder="Search by repository name" #searchInput/>
     <span class="seach-icon interactive">
         <fa-icon [icon]="faSearch"></fa-icon>
       </span>
   </div>
   <div class="search-results">
-    <nggit-repository *ngFor="let number of 6|fill"></nggit-repository>
+    <nggit-repository *ngFor="let repository of repositories" [repository]="repository"></nggit-repository>
   </div>
 </div>
