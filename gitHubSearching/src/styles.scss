@@ -132,8 +132,50 @@ nggit-repo-search{
 }
 
 nggit-repository{
-  background-color: red;
-  flex-basis: 700px;
-  height: 200px;
+  flex-basis: 500px;
   margin: 20px;
+  border: 1px solid #c9c9c9;
+  padding: 20px 20px;
+  padding-top:10px ;
+  border-radius: 4px;
+  font-size: 1.5rem;
+}
+
+
+.repo-header{
+  margin-bottom: 20px;
+
+  .repo-name{
+  }
+}
+
+.repo-body{
+  .repo-description{
+    margin-bottom: 20px;
+    color: #797676;
+  }
+
+  .information-container{
+     & > span{
+       margin-right: 15px;
+       color: #797676;
+
+       fa-icon{
+         margin-right: 5px;
+       }
+
+       &:nth-of-type(2) > fa-icon{
+         color: rgb(224, 183, 46);
+       }
+
+
+       &:nth-of-type(3) > fa-icon{
+        color: #e62727;
+      }
+     }
+
+     & > a{
+      float: right;
+     }
+  }
 }

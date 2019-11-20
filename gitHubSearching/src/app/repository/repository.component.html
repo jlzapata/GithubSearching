@@ -1,1 +1,12 @@
-<p>repository works!</p>
+<div class="repo-header">
+    <h2 class="repo-name">{{repository.name}}</h2>
+</div>
+<div class="repo-body">
+  <p class="repo-description">{{repository.description}}</p>
+  <div class="information-container">
+    <span *ngIf="repository.programmingLanguage" class="repo-language"><fa-icon [icon]="faCircle" [style.color]="repository.programmingLanguage|mapTransformation:languageColorCollection"></fa-icon><span class="repo-color"></span>{{repository.programmingLanguage}}</span>
+    <span class="repo-stars"><fa-icon [icon]="faStar"></fa-icon>{{repository.stars}}</span>
+    <span class="repo-open-issues"><fa-icon [icon]="faExclamationTriangle"></fa-icon>{{repository.openIssuesCount}}</span>
+    <a class="interactive">Top Contributors</a>
+  </div>
+</div>

@@ -18,6 +18,16 @@ export class RepoSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private githubService: GithubApiService) {
+    this.repositories = Array(6).fill(null).map(_ => {
+      return {
+        name: 'RepoName',
+        description: 'Repo description repo description repo description.',
+        stars: 1768,
+        openIssuesCount: 12,
+        url: 'http://github.com',
+        programmingLanguage: 'Javascript'
+      }
+    });
   }
 
   ngOnInit() {

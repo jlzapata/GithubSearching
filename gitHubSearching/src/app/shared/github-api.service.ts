@@ -21,17 +21,22 @@ export class GithubApiService {
       Accept: 'application/vnd.github.v3+json'
     });
 
-    return this.httpClient.get<T>(url, {headers});
+    return this.httpClient.get<T>(url, {headers, observe: 'response'})
+    .pipe(map(response => {
+      console.log(response);
+      console.log(response.headers.get('X-RateLimit-Limit'));
+      return response.body;
+    }));
    }
 
-   getPopularRepositories(repoName: string, perPage: number = 6, page: number = 1): Observable<Repository[]> {
+   getPopularRepositories(name: string, perPage: number = 6, page: number = 1): Observable<Repository[]> {
     console.log('request started.....................');
-    return this.getData<Repository[]>(`/search/repositories?q=${repoName}&per_page=${perPage}&page=${page}&sort=stars&order=desc`)
+    return this.getData<Repository[]>(`/search/repositories?q=${name} in:name&per_page=${perPage}&page=${page}&sort=stars&order=desc`)
     .pipe(
       map((response: any) => {
         return response.items.map(repo => {
           return {
-            repoName: repo.full_name,
+            name: repo.full_name,
             description: repo.description,
             stars: repo.stargazers_count,
             openIssuesCount: repo.open_issues,
