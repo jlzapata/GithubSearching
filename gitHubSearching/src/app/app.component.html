@@ -1,5 +1,6 @@
 <nggit-navbar></nggit-navbar>
-<div class="content" role="main">
-    <router-outlet></router-outlet>
+<div class="loding-page-indicator" *ngIf="loading"></div>
+<div class="content" role="main" [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
 </div>
 

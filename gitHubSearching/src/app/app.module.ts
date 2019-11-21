@@ -14,13 +14,15 @@ import { SharedModule } from './shared/shared.module';
 import { ContributorsRepositoryComponent } from './contributors-repository/contributors-repository.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContributorComponent } from './contributor/contributor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RepoSearchComponent,
     RepositoryComponent,
-    ContributorsRepositoryComponent
+    ContributorsRepositoryComponent,
+    ContributorComponent
   ],
   imports: [
     BrowserModule,
