@@ -133,6 +133,7 @@ nggit-repo-search{
 
 nggit-repository{
   flex-basis: 500px;
+  max-width: 500px;
   margin: 20px;
   border: 1px solid #c9c9c9;
   padding: 20px 20px;
@@ -146,6 +147,11 @@ nggit-repository{
 
 .repo-header{
   margin-bottom: 20px;
+
+  h2{
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .repo-body{

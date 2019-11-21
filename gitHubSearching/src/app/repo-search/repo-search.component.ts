@@ -4,11 +4,13 @@ import { GithubApiService } from '../shared/github-api.service';
 import { debounce, map, switchMap } from 'rxjs/operators';
 import { fromEvent, EMPTY, empty, Subscription, timer } from 'rxjs';
 import { Repository } from '../shared/models';
+import { enterLeaveAnimation } from '../shared/animations/enter-leave.animation';
 
 @Component({
   selector: 'nggit-repo-search',
   templateUrl: './repo-search.component.html',
-  styleUrls: ['./repo-search.component.scss']
+  styleUrls: ['./repo-search.component.scss'],
+  animations: [enterLeaveAnimation]
 })
 export class RepoSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   faSearch = faSearch;
@@ -51,12 +53,22 @@ export class RepoSearchComponent implements OnInit, AfterViewInit, OnDestroy {
             return EMPTY;
           }
       }))
-      .subscribe(repositories => {
-        console.log(repositories);
-        this.repositories = repositories;
-        this.loading = false;
+      .subscribe({
+        next: repositories => {
+          this.repositories = repositories;
+          this.loading = false;
+        },
+        error: (error: any) => {
+          this.loading = false;
+          console.log(error);
+        }
       })
     );
+  }
+
+
+  trackRepository(index: number, repository: Repository){
+    return repository ? repository.id : undefined;
   }
 
 

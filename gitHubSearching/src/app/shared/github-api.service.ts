@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import { Repository } from './models';
 
 @Injectable()
@@ -18,11 +18,14 @@ export class GithubApiService {
     const url = `${this.gitApiUrl}${queryString}`;
 
     const headers = new HttpHeaders({
-      Accept: 'application/vnd.github.v3+json'
+      Accept: 'application/vnd.github.v3+json',
+      Authorization: `token ${environment.githubApiKey}`
     });
 
     return this.httpClient.get<T>(url, {headers, observe: 'response'})
-    .pipe(map(response => {
+    .pipe(
+      retry(2),
+      map(response => {
       console.log(response);
       console.log(response.headers.get('X-RateLimit-Limit'));
       return response.body;
@@ -45,7 +48,8 @@ export class GithubApiService {
             programmingLanguage: repo.language
           };
         });
-      }));
+      })
+    );
    }
 
 

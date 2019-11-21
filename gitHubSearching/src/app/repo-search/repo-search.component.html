@@ -2,12 +2,12 @@
   <div class="search-control">
     <input class="input-control bold-text" name="repo-name" placeholder="Search by repository name" #searchInput/>
     <div class="loader search" *ngIf="loading"></div>
-    <span class="seach-icon interactive">
+    <span class="seach-icon interactive" (click)="searchInput.focus();">
         <fa-icon [icon]="faSearch"></fa-icon>
       </span>
   </div>
   <div class="search-results" *ngIf="firstSearch">
-    <nggit-repository *ngFor="let repository of repositories" [repository]="repository"></nggit-repository>
+    <nggit-repository *ngFor="let repository of repositories; trackBy:trackRepository" [repository]="repository" [@addingRemoving]></nggit-repository>
   </div>
   <div class="info" *ngIf="!firstSearch">
     <p>Go ahead and start searching for the most popular repositories in <a href="https://www.github.com" target="_blank">GitHub</a>.</p>
