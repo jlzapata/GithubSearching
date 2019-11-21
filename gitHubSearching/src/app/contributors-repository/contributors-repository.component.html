@@ -2,7 +2,7 @@
   <h2 class="repo-name big-repo-name">{{repositoryName}}</h2>
 </div>
 <div class="contributors-list">
-  <nggit-contributor *ngFor="let contributor of partialContributors" [contributor]="contributor"></nggit-contributor>
+  <nggit-contributor *ngFor="let contributor of partialContributors" [contributor]="contributor" [@fadeIn]></nggit-contributor>
 </div>
 <div class="load-more">
   <button class="interactive" (click)="loadMore()" *ngIf="canLoadMore">Load More</button>

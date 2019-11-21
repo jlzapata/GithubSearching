@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, ActivatedRouteSnapshot } from '@angular/router';
 import { Contribution } from '../shared/models';
 import { map } from 'rxjs/operators';
+import { fadeInAnimation } from '../shared/animations/fade-in.animation';
 
 @Component({
   selector: 'nggit-contributors-repository',
   templateUrl: './contributors-repository.component.html',
-  styleUrls: ['./contributors-repository.component.scss']
+  styleUrls: ['./contributors-repository.component.scss'],
+  animations: [fadeInAnimation]
 })
 export class ContributorsRepositoryComponent implements OnInit {
 

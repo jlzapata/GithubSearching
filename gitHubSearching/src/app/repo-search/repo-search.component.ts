@@ -1,22 +1,26 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy} from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { GithubApiService } from '../shared/github-api.service';
-import { debounce, map, switchMap } from 'rxjs/operators';
-import { fromEvent, EMPTY, empty, Subscription, timer } from 'rxjs';
+import { debounce, map, switchMap, catchError } from 'rxjs/operators';
+import { fromEvent, EMPTY, empty, Subscription, timer, of, Observable } from 'rxjs';
 import { Repository } from '../shared/models';
 import { enterLeaveAnimation } from '../shared/animations/enter-leave.animation';
+import { fadeInAnimation } from '../shared/animations/fade-in.animation';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'nggit-repo-search',
   templateUrl: './repo-search.component.html',
   styleUrls: ['./repo-search.component.scss'],
-  animations: [enterLeaveAnimation]
+  animations: [enterLeaveAnimation, fadeInAnimation]
 })
 export class RepoSearchComponent implements OnInit, AfterViewInit, OnDestroy {
   faSearch = faSearch;
   repositories: Repository[];
   firstSearch = false;
   loading = false;
+  notFound = false;
+  apiRateLimitReached = false;
 
   @ViewChild('searchInput', {static: true}) searchInput: ElementRef<HTMLInputElement>;
 
@@ -35,6 +39,7 @@ export class RepoSearchComponent implements OnInit, AfterViewInit, OnDestroy {
       fromEvent(this.searchInput.nativeElement, 'keyup')
       .pipe(
         debounce((ev: KeyboardEvent) => {
+          this.notFound = false;
           if (ev.key === 'Enter') {
             return EMPTY;
           } else {
@@ -52,22 +57,43 @@ export class RepoSearchComponent implements OnInit, AfterViewInit, OnDestroy {
           } else {
             return EMPTY;
           }
-      }))
+      }),
+      catchError(err => {
+        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 403) {
+            this.apiRateLimitReached = true;
+          }
+        }
+
+        return of([]);
+      })
+      )
       .subscribe({
         next: repositories => {
-          this.repositories = repositories;
           this.loading = false;
+
+          if (repositories) {
+            this.repositories = repositories;
+            if (this.repositories.length === 0) {
+              this.notFound = !this.apiRateLimitReached;
+            }
+          }
         },
         error: (error: any) => {
           this.loading = false;
-          console.log(error);
-        }
+        },
+        complete: () => this.loading = false
       })
     );
   }
 
+  reload() {
+    window.location.reload();
+  }
 
-  trackRepository(index: number, repository: Repository){
+
+  trackRepository(index: number, repository: Repository) {
     return repository ? repository.id : undefined;
   }
 

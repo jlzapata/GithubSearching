@@ -288,6 +288,7 @@ nggit-contributors-repository{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 80px;
     button{
       width: 10%;
       padding: 10px;
@@ -320,13 +321,18 @@ nggit-contributors-repository{
   background-color: #f5f5f5;
 
   .avatar{
-    width: 20%;
-    border-radius: 5px;
+    width: 25%;
+    border-radius: 5px 0 0 5px;
   }
 
   .contributor-info{
     width: 75%;
     margin-left: 20px;
+    margin-bottom: 15px;
+
+    p {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -342,4 +348,36 @@ nggit-contributors-repository{
   width: 100%;
   position: relative;
   top: 65px;
+}
+
+.badge{
+  background-color: $backgroundColor;
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.not-found-records{
+  text-align: center;
+  h2{
+    font-size: 3rem;
+  }
+
+  img{
+    width: 30%;
+    margin-bottom: 30px;
+  }
+
+  p{
+    font-size: 2rem;
+
+    .searched-name, .interactive{
+      color: #125699;
+    }
+  }
+}
+
+
+.bold{
+  font-weight: 900;
 }
