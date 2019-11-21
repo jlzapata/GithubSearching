@@ -4,6 +4,11 @@
 <div class="contributors-list">
   <nggit-contributor *ngFor="let contributor of partialContributors" [contributor]="contributor" [@fadeIn]></nggit-contributor>
 </div>
+<nggit-error *ngIf="contributors.length == 0" [title]="'0 Contributors'" [image]="'git-icon.png'" [@fadeIn]>
+    <p error-body>
+      This repository has 0 contributors by the moment. Be the first to contribute!
+    </p>
+</nggit-error>
 <div class="load-more">
   <button class="interactive" (click)="loadMore()" *ngIf="canLoadMore">Load More</button>
 </div>

@@ -50,6 +50,11 @@ export class GithubApiService {
    getContributors(repositoryOwner: string, repositoryName: string): Observable<Contribution[]> {
     return this.getData<Contribution[]>(`/repos/${repositoryOwner}/${repositoryName}/stats/contributors`)
       .pipe(map((response: any) => {
+        console.log(response);
+        if (!response) {
+          return [];
+        }
+
         return response.map((contributor: any) => {
           return {
             author: {

@@ -343,11 +343,32 @@ nggit-contributors-repository{
 
 
 .loding-page-indicator{
-  background-color: red;
   height: 5px;
   width: 100%;
   position: relative;
   top: 65px;
+  animation: router-navigation 2s infinite ease-in-out;
+  background-color: #2136fd;
+  background-color: #2136fd;
+  background-image: linear-gradient(19deg, #2136fd 8%, #ffffff 50%, #2136fd 100%);
+
+}
+
+
+@keyframes router-navigation{
+  0%{
+    transform: traslationX(0%);
+    transform: rotateY(0deg);
+  }
+  49%{
+    transform: traslationX(90%);
+  }
+  50%{
+    transform: rotateY(180deg);
+  }
+  100%{
+    transform: translateX(0%);
+  }
 }
 
 .badge{

@@ -8,18 +8,17 @@
   </div>
   <div class="search-results" *ngIf="firstSearch">
     <nggit-repository *ngFor="let repository of repositories; trackBy:trackRepository" [repository]="repository" [@addingRemoving]></nggit-repository>
-    <div *ngIf="notFound" class="not-found-records" [@fadeIn]>
-      <h2>Repository not found</h2>
-      <img src='/assets/images/Octocat.png'/>
-      <p>There is any repository with the name <span class="searched-name">"{{searchInput.value}}"</span>. Please, try again with a different name!</p>
-    </div>
-    <div *ngIf="apiRateLimitReached" class="not-found-records error-container" [@fadeIn]>
-      <h2>API rate limit exceeded</h2>
-      <img src='/assets/images/git-icon.png'/>
-      <p>The GitHub API rate limit has been reached. If you are not using an API key, you can add one to the <span class="bold">enviroment file</span> and continue using the application. Otherwise,
+    <nggit-error *ngIf="notFound" class="not-found-records" [title]="'Repository not found'" [image]="'Octocat.png'" [@fadeIn]>
+      <p error-body>There is any repository with the name <span class="searched-name">"{{searchInput.value}}"</span>. Please, try again with a different name!</p>
+    </nggit-error>
+    <nggit-error *ngIf="apiRateLimitReached" class="not-found-records error-container"
+      [@fadeIn]
+      [title]="'API rate limit exceeded'"
+      [image]="'git-icon.png'">
+      <p error-body>The GitHub API rate limit has been reached. If you are not using an API key, you can add one to the <span class="bold">enviroment file</span> and continue using the application. Otherwise,
         wait around a minute and try again. <span class="interactive bold" (click)="reload()">Reload</span> the page before process!
       </p>
-    </div>
+    </nggit-error>
   </div>
   <div class="info" *ngIf="!firstSearch">
     <p>Go ahead and start searching for the most popular repositories in <a href="https://www.github.com" target="_blank">GitHub</a>.</p>
