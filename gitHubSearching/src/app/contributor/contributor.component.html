@@ -1,0 +1,8 @@
+<div class="contributor-container">
+  <img class="avatar" [src]="contributor.author.avatarUrl" />
+  <div class="contributor-info">
+    <h3>{{contributor.author.userName}}</h3>
+    <p>Contributions: <span class="badge">{{contributor.contributionsCount}}</span></p>
+    <a [href]="contributor.author.profileUrl" target="_blank">Go to profile</a>
+  </div>
+</div>

@@ -33,6 +33,11 @@ p {
   font-weight: 600;
   padding: 16px;
   font-size: 1.5rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+
   fa-icon{
     font-size: 3rem;
     margin: 0 5px;
@@ -63,6 +68,7 @@ input:focus{
   padding: 0 16px;
   flex-direction: column;
   align-items: center;
+  margin-top: 100px;
 }
 
 .interactive {
@@ -83,9 +89,8 @@ input:focus{
   font-weight: 600;
 }
 
-nggit-repo-search{
+nggit-repo-search, nggit-contributors-repository{
   width: 100%;
-  height: 200px;
 
   .search-control{
     width: 100%;
@@ -95,6 +100,7 @@ nggit-repo-search{
     border: 1px solid $backgroundColor;
     border-radius: 5px;
     height: 40px;
+    position: relative;
 
     input{
       width: 85%;
@@ -119,8 +125,7 @@ nggit-repo-search{
     }
   }
 
-  .search-results{
-    height: 200px;
+  .search-results, .contributors-list{
     margin: 20px auto;
     width: 90%;
     min-width: 420px;
@@ -133,19 +138,24 @@ nggit-repo-search{
 
 nggit-repository{
   flex-basis: 500px;
+  max-width: 500px;
   margin: 20px;
   border: 1px solid #c9c9c9;
   padding: 20px 20px;
   padding-top:10px ;
   border-radius: 4px;
   font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 
 .repo-header{
   margin-bottom: 20px;
 
-  .repo-name{
+  h2{
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
@@ -154,28 +164,241 @@ nggit-repository{
     margin-bottom: 20px;
     color: #797676;
   }
-
-  .information-container{
-     & > span{
-       margin-right: 15px;
-       color: #797676;
-
-       fa-icon{
-         margin-right: 5px;
-       }
-
-       &:nth-of-type(2) > fa-icon{
-         color: rgb(224, 183, 46);
-       }
+}
 
 
-       &:nth-of-type(3) > fa-icon{
-        color: #e62727;
-      }
-     }
+.information-container{
+  margin-top: auto;
 
-     & > a{
-      float: right;
-     }
+  & > span{
+    margin-right: 15px;
+    color: #797676;
+
+    fa-icon{
+      margin-right: 5px;
+    }
+
+    &:nth-of-type(2) > fa-icon{
+      color: rgb(224, 183, 46);
+    }
+
+
+    &:nth-of-type(3) > fa-icon{
+     color: #e62727;
+   }
   }
+
+  & > a{
+   float: right;
+  }
+}
+
+.info{
+  font-size: 2rem;
+  text-align: center;
+  margin: 40px 0;
+}
+
+
+
+.loader {
+  text-indent: -9999em;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  background: #24292E;
+  background: -moz-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: -webkit-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: -o-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: -ms-linear-gradient(left, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  background: linear-gradient(to right, rgb(171, 174, 177) 10%, rgba(255, 255, 255, 0) 42%);
+  position: relative;
+  -webkit-animation: load3 1s infinite ease-in-out;
+  animation: load3 1s infinite ease-in-out;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  display: inline-block;
+  position: absolute;
+
+  &.search{
+    right: 15%;
+    top: 4px;
+
+  }
+}
+.loader:before {
+  width: 50%;
+  height: 50%;
+  background: #24292E;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+.loader:after {
+  background: #fff;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: '';
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+.big-repo-name{
+  font-size: 5rem;
+  text-transform: capitalize;
+}
+
+
+nggit-contributors-repository{
+  & > .repo-header{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .load-more{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+    button{
+      width: 10%;
+      padding: 10px;
+      background-color: $backgroundColor;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 1.5rem;
+    }
+  }
+
+  nggit-contributor{
+    flex-basis: 400px;
+    max-width: 400px;
+    margin: 20px;
+    padding: 20px 20px;
+    padding-top: 10px;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.contributor-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+
+  .avatar{
+    width: 25%;
+    border-radius: 5px 0 0 5px;
+  }
+
+  .contributor-info{
+    width: 75%;
+    margin-left: 20px;
+    margin-bottom: 15px;
+
+    p {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+
+.contributors-list{
+  transform: translateX(5%);
+}
+
+
+.loding-page-indicator{
+  height: 5px;
+  width: 100%;
+  position: relative;
+  top: 65px;
+  animation: router-navigation 2s infinite ease-in-out;
+  background-color: #2136fd;
+  background-color: #2136fd;
+  background-image: linear-gradient(19deg, #2136fd 8%, #ffffff 50%, #2136fd 100%);
+
+}
+
+
+@keyframes router-navigation{
+  0%{
+    transform: traslationX(0%);
+    transform: rotateY(0deg);
+  }
+  49%{
+    transform: traslationX(90%);
+  }
+  50%{
+    transform: rotateY(180deg);
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}
+
+.badge{
+  background-color: $backgroundColor;
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.not-found-records{
+  text-align: center;
+  h2{
+    font-size: 3rem;
+  }
+
+  img{
+    width: 30%;
+    margin-bottom: 30px;
+  }
+
+  p{
+    font-size: 2rem;
+
+    .searched-name, .interactive{
+      color: #125699;
+    }
+  }
+}
+
+
+.bold{
+  font-weight: 900;
 }

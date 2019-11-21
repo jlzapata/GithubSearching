@@ -11,19 +11,27 @@ import { CoreModule } from './core/core.module';
 import { RepoSearchComponent } from './repo-search/repo-search.component';
 import { RepositoryComponent } from './repository/repository.component';
 import { SharedModule } from './shared/shared.module';
+import { ContributorsRepositoryComponent } from './contributors-repository/contributors-repository.component';
+import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContributorComponent } from './contributor/contributor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RepoSearchComponent,
-    RepositoryComponent
+    RepositoryComponent,
+    ContributorsRepositoryComponent,
+    ContributorComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     FontAwesomeModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
