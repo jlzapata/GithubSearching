@@ -13,8 +13,6 @@ export class ContributionsResolver implements Resolve<Contribution[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
   Contribution[] | Observable<Contribution[]> | Promise<Contribution[]> {
-    console.log(route);
-    console.log(state);
     const owner = route.params['owner'];
     const repo = route.params['repo'];
 

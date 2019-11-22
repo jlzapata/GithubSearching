@@ -15,12 +15,11 @@ export class ContributorsRepositoryComponent implements OnInit {
   partialContributors: Contribution[];
   repositoryName: string;
   canLoadMore: boolean;
-  private contributors: Contribution[];
+  contributors: Contribution[];
   private page = 1;
   private perPage = 5;
 
   constructor(private route: ActivatedRoute) {
-    console.log(route);
     this.route.data.subscribe({
       next: (data: any) => {
         this.contributors = data.contributors.reverse();
@@ -31,15 +30,13 @@ export class ContributorsRepositoryComponent implements OnInit {
     this.route.params.subscribe(data => this.repositoryName = data.repo);
   }
 
-  ngOnInit() {
-    console.log(this.contributors.length);
-  }
+  ngOnInit() {}
 
   loadMore() {
     ++this.page;
     const startIndex = this.page * this.perPage;
     const endIndex = startIndex + this.perPage <= this.contributors.length ?
-      startIndex + this.perPage : this.contributors.length - startIndex;
+      startIndex + this.perPage : startIndex + (this.contributors.length - startIndex);
 
     this.partialContributors.push(...this.contributors.slice(startIndex, endIndex));
 
