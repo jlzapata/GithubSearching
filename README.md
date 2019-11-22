@@ -3,7 +3,7 @@ Angular app to search information in GitHub.
 
 # Installation
 
-GithubSearching requires [Node.js](https://nodejs.org/) v4+ and [Angular CLI](https://https://angular.io/cli) to run.
+GithubSearching requires [Node.js](https://nodejs.org/) and [Angular CLI](https://https://angular.io/cli) to run.
 
 Install the dependencies and start the server.
 
