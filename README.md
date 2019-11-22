@@ -2,7 +2,17 @@
 Angular app to search information in GitHub.
 
 # Installation
-To run the application you must have to install Node js and the Angular CLI.
 
-Run the application from the gitHubSearching folder with the command ng serve or ng serve --prod.
+GithubSearching requires [Node.js](https://nodejs.org/) v4+ and [Angular CLI](https://https://angular.io/cli) to run.
 
+Install the dependencies and start the server.
+
+```sh
+$ cd gitHubSearching
+$ npm install
+$ ng serve --open
+```
+
+# Dependencies
+
+GithubSearching use [angular-fontawesome package](https://https://www.npmjs.com/package/@fortawesome/angular-fontawesome).
