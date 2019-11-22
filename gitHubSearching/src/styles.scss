@@ -58,6 +58,10 @@ a:hover {
   color: #125699;
 }
 
+body{
+  overflow-x: hidden;
+}
+
 input:focus{
   outline: none;
 }

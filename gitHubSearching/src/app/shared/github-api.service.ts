@@ -10,27 +10,40 @@ export class GithubApiService {
 
   private gitApiUrl = environment.gitHubUrl;
   private Authorization = `token ${environment.githubApiKey}`;
+  lastSearch: Repository[];
 
   constructor(private httpClient: HttpClient) {
 
    }
 
-   private getData<T>(queryString: string): Observable<T> {
+   private getData<T>(queryString: string, outHeaders: HttpHeaders = null): Observable<T> {
     const url = `${this.gitApiUrl}${queryString}`;
 
-    const headers = new HttpHeaders({
+    let headers = new HttpHeaders({
       Accept: 'application/vnd.github.v3+json'
     });
+
+    if (environment.githubApiKey) {
+      headers = headers.append('Authorization', `token ${environment.githubApiKey}`);
+    }
 
     return this.httpClient.get<T>(url, {headers})
     .pipe(retry(2));
    }
 
    getPopularRepositories(name: string, perPage: number = 6, page: number = 1): Observable<Repository[]> {
-    return this.getData<Repository[]>(`/search/repositories?q=${name} in:name&per_page=${perPage}&page=${page}&sort=stars&order=desc`)
+    let headers: HttpHeaders;
+    if (environment.githubApiKey) {
+     headers = new HttpHeaders({
+       Authorization: `token ${environment.githubApiKey}`
+     });
+    }
+
+    return this.getData<Repository[]>(`/search/repositories?q=${name} in:name&per_page=${perPage}&page=${page}&sort=stars&order=desc`,
+    headers)
     .pipe(
       map((response: any) => {
-        return response.items.map(repo => {
+        const repositories = response.items.map(repo => {
           return {
             id: repo.id,
             name: repo.name,
@@ -43,6 +56,8 @@ export class GithubApiService {
             owner: repo.owner.login
           };
         });
+        this.lastSearch = repositories;
+        return repositories;
       })
     );
    }
@@ -51,7 +66,7 @@ export class GithubApiService {
     return this.getData<Contribution[]>(`/repos/${repositoryOwner}/${repositoryName}/stats/contributors`)
       .pipe(map((response: any) => {
         console.log(response);
-        if (!response) {
+        if (!Array.isArray(response)) {
           return [];
         }
 

@@ -2,7 +2,7 @@
   <div class="search-control">
     <input class="input-control bold-text" name="repo-name" placeholder="Search by repository name" #searchInput/>
     <div class="loader search" *ngIf="loading"></div>
-    <span class="seach-icon interactive" (click)="searchInput.focus();">
+    <span class="seach-icon interactive" (click)="searchInput.focus(); search();">
         <fa-icon [icon]="faSearch"></fa-icon>
       </span>
   </div>
