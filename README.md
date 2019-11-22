@@ -16,6 +16,7 @@ $ ng serve --open
 # Dependencies
 
 GithubSearching uses [angular-fontawesome package](https://www.npmjs.com/package/@fortawesome/angular-fontawesome).
+[RxJS](https://rxjs-dev.firebaseapp.com/) for reactive programming. 
 
 
 # Tech
