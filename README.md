@@ -15,4 +15,4 @@ $ ng serve --open
 
 # Dependencies
 
-GithubSearching use [angular-fontawesome package](https://https://www.npmjs.com/package/@fortawesome/angular-fontawesome).
+GithubSearching uses [angular-fontawesome package](https://https://www.npmjs.com/package/@fortawesome/angular-fontawesome).
